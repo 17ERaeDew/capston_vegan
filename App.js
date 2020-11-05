@@ -1,13 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { useCachedResources } from './src/hooks';
+import EnrollNavigation from './src/navigation/EnrollNavigation';
+import ProviderWrapper from './Provider';
 
 export default function App() {
+  const isLoadingComplete = useCachedResources();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ProviderWrapper>
+        <EnrollNavigation />
+        <StatusBar />
+    </ProviderWrapper>
   );
 }
 
@@ -17,5 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    },
+    loading: {
+        width: '100%',
+        height: '100%'
+    }
 });
