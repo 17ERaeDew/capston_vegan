@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, Image, View, Text } from "react-native";
-import { CustomButton, CustomArrow } from '../components/Button';
+import { CustomButton } from '../components/Button';
 import { CustomInput } from '../components/Input';
+import { SliderBox } from 'react-native-image-slider-box';
 
 export function EnrollStart({navigation}){
     return (
@@ -68,41 +69,87 @@ export function EnrollName({navigation}){
     )
 }
 
-export function EnrollVegan(){
-    const [vegan, setVegan] = React.useState('start');
-    // const vegan_kind = ['../assets/images/enroll_vegan_start.png', 'flexitarian', 'pollo', 'pesco', 'lacto-ovo', 'ovo', 'lacto', 'vegan'];
-    const vegan_kind = ['../assets/images/enroll_vegan_start.png'];
+export function EnrollVegan({navigation}){
+    const [vegan, setVegan] = React.useState(0);
+    const vegan_kind = [require('../assets/images/enroll_vegan_start.png'),
+     require('../assets/images/enroll_vegan_flexitarian.png'),
+     require('../assets/images/enroll_vegan_pollo.png'),
+     require('../assets/images/enroll_vegan_pesco.png'),
+     require('../assets/images/enroll_vegan_lacto-ovo.png'),
+     require('../assets/images/enroll_vegan_ovo.png'),
+     require('../assets/images/enroll_vegan_lacto.png'),
+     require('../assets/images/enroll_vegan_vegan.png')];
     
     return (
         <View style={styles.container}>
-            <View>
-            <CustomArrow/>
-                {vegan_kind.filter((value, index) => {
-                        <Image
-                            style={styles.people}
-                            source={vegan_kind[0]}
-                        />
-                })}
-                                        <Image
-                            style={styles.people}
-                            source={vegan_kind[0]}
-                        />
-            <CustomArrow/>
+            <View style={styles.imgSlider}>
+                <SliderBox
+                    images={vegan_kind}
+                    dotColor="#009945"
+                    inactiveDotColor="gray"
+                    ImageComponentStyle={{ width: 300, height: 300 }}
+                    parentWidth={300}
+                    parentHeight={300}
+                    currentImageEmitter={(index) => {
+                        setVegan(
+                            index
+                        );
+                    }}
+                />
             </View>
-
             <Image
                 style={styles.switch}
-                source={require('../assets/images/enroll_switch_first.png')}
+                source={require('../assets/images/enroll_switch_second.png')}
             />
-            {/* <Text style={styles.baseText}>
-                채식사이를 이용해주셔서 감사합니다!
-            </Text>
-            <Text style={styles.baseText}>
-                이용전에 간단한 설정을 부탁드립니다.
-            </Text> */}
+            <View style={styles.buttonView}>
+                {vegan === 0 ? (
+                    <CustomButton 
+                        title="다음"
+                        backgroundColor="#ffffff"
+                        fontColor="#C9C9C9"
+                        borderColor="gray"
+                    />
+                ) : (
+                <CustomButton 
+                    title="다음"
+                    onPress={()=> navigation.navigate('EnrollFinish')}
+                />
+                )}
+            </View>
       </View>
     )
 }
+
+export function EnrollFinish({navigation}){
+    return (
+        <View style={styles.container}>
+            <View>
+                <Image
+                    style={styles.people}
+                    source={require('../assets/images/enroll_people_fin.png')}
+                />
+            </View>
+            <Image
+                style={styles.switch}
+                source={require('../assets/images/enroll_switch_third.png')}
+            />
+            <View>
+                <Text style={styles.baseText}>
+                    설정이 모두 완료되었습니다!
+                    {'\n'}
+                    채식사이를 이용해주셔서 감사합니다!
+                </Text>
+            </View>
+            <View style={styles.buttonView}>
+                <CustomButton 
+                    title="확인"
+                    onPress={()=> navigation.navigate('EnrollName')}
+                />
+            </View>
+        </View>
+    )
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -135,5 +182,8 @@ const styles = StyleSheet.create({
     startButton: {
         borderRadius: 5,
         height: 40
+    },
+    imgSlider: {
+        height: 300
     }
 })

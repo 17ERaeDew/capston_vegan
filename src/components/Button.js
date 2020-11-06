@@ -18,18 +18,6 @@ export function CustomButton(props) {
     )
 }
 
-export function CustomArrow(props) {
-    return (
-      <TouchableOpacity 
-        style={styles.arrow}
-        onPress={props.onPress}
-        activeOpacity={1}
-        >
-        <Text>{'<'}</Text>
-      </TouchableOpacity>
-    )
-}
-
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
@@ -43,12 +31,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     color: 'white'
-  },
-  arrow: {
-    borderRadius: 100,
-    borderWidth: 2,
-    height: 30,
-    width: 30
   }
 });
 
@@ -59,7 +41,3 @@ CustomButton.defaultProps = {
     fontColor: 'white',
     borderColor: '#009945'
 };
-
-CustomArrow.defaultProps = {
-  onPress: ()=>{}
-}
