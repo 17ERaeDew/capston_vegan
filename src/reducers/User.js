@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const user = {
   name: "",
-  vegan: '',
+  vegan: 0,
 };
 const sendUserSlice = createSlice({
   name: "User",

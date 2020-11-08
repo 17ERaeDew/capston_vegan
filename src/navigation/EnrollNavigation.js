@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loading, EnrollName, EnrollStart, EnrollVegan, EnrollFinish } from '../screens';
+import { Loading, EnrollName, EnrollStart, EnrollVegan, EnrollFinish, TestOCR } from '../screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -14,6 +14,8 @@ export default function EnrollNavigation() {
             <Stack.Screen name="EnrollName" component={EnrollName} />
             <Stack.Screen name="EnrollVegan" component={EnrollVegan} />
             <Stack.Screen name="EnrollFinish" component={EnrollFinish} />
+            <Stack.Screen name="TestOCR" component={TestOCR} />
+
         </Stack.Navigator>
     </NavigationContainer>
   );

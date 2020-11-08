@@ -7,7 +7,7 @@ import User from "./User";
 const userPersistConfig = {
   key: "User",
   storage: AsyncStorage,
-  whitelist: [""], // only navigation will be persisted
+  whitelist: ["user"], // only navigation will be persisted
 };
 
 export default combineReducers({

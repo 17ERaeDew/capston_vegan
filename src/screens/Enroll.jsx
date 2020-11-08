@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, Image, View, Text } from "react-native";
+import { StyleSheet, Image, View, Text, ActivityIndicator } from "react-native";
 import { CustomButton } from '../components/Button';
 import { CustomInput } from '../components/Input';
+import { ImagePickerExample } from '../components/ImgInput';
+import { useEnroll, useOcr } from '../hooks';
 import { SliderBox } from 'react-native-image-slider-box';
+
 
 export function EnrollStart({navigation}){
     return (
@@ -32,7 +35,8 @@ export function EnrollStart({navigation}){
 
 
 export function EnrollName({navigation}){
-    const [name, setName] = React.useState('');
+    const [enroll, setEnroll] = useEnroll();
+
     return (
         <View style={styles.container}>
             <Image
@@ -46,12 +50,12 @@ export function EnrollName({navigation}){
             <View style={styles.input}>
                 <CustomInput 
                     placeholder="이름을 입력해주세요."
-                    onChangeText={(text) => setName(text)}
-                    value={name}
+                    onChangeText={(text) => setEnroll.inputName(text)}
+                    value={enroll.enroll.name}
                 />
             </View>
             <View style={styles.buttonView}>
-                {name === '' ? (
+                {enroll.enroll.name === '' ? (
                     <CustomButton 
                         title="다음"
                         backgroundColor="#ffffff"
@@ -61,7 +65,10 @@ export function EnrollName({navigation}){
                 ) : (
                 <CustomButton 
                     title="다음"
-                    onPress={()=> navigation.navigate('EnrollVegan')}
+                    onPress={()=> {
+                        setEnroll.finEnroll();
+                        navigation.navigate('EnrollVegan')}
+                    }
                 />
                 )}
             </View>
@@ -70,7 +77,7 @@ export function EnrollName({navigation}){
 }
 
 export function EnrollVegan({navigation}){
-    const [vegan, setVegan] = React.useState(0);
+    const [enroll, setEnroll] = useEnroll();
     const vegan_kind = [require('../assets/images/enroll_vegan_start.png'),
      require('../assets/images/enroll_vegan_flexitarian.png'),
      require('../assets/images/enroll_vegan_pollo.png'),
@@ -91,7 +98,7 @@ export function EnrollVegan({navigation}){
                     parentWidth={300}
                     parentHeight={300}
                     currentImageEmitter={(index) => {
-                        setVegan(
+                        setEnroll.selectVegan(
                             index
                         );
                     }}
@@ -102,7 +109,7 @@ export function EnrollVegan({navigation}){
                 source={require('../assets/images/enroll_switch_second.png')}
             />
             <View style={styles.buttonView}>
-                {vegan === 0 ? (
+                {enroll.enroll.vegan === 0 ? (
                     <CustomButton 
                         title="다음"
                         backgroundColor="#ffffff"
@@ -112,7 +119,10 @@ export function EnrollVegan({navigation}){
                 ) : (
                 <CustomButton 
                     title="다음"
-                    onPress={()=> navigation.navigate('EnrollFinish')}
+                    onPress={()=> {
+                        setEnroll.finEnroll();
+                        navigation.navigate('EnrollFinish')}
+                    }
                 />
                 )}
             </View>
@@ -143,7 +153,31 @@ export function EnrollFinish({navigation}){
             <View style={styles.buttonView}>
                 <CustomButton 
                     title="확인"
-                    onPress={()=> navigation.navigate('EnrollName')}
+                    onPress={()=> navigation.navigate('TestOCR')}
+                />
+            </View>
+        </View>
+    )
+}
+
+export function TestOCR({navigation}){
+    const [ocr, setOcr] = useOcr();
+    console.log(ocr.ocrState.responses[0].textAnnotations[0].description)
+    return (
+        <View style={styles.container}>
+            <ImagePickerExample image={ocr.image} setImage={setOcr.setImage} />
+            {/* <Image
+                style={styles.base64image}
+                source={{uri: ocr.image}}
+            /> */}
+            {ocr.loading && <ActivityIndicator size="large" color="#0000ff" />}
+                <Text >
+                    {ocr.ocrState.responses[0].textAnnotations[0].description}
+                </Text>
+            <View style={styles.buttonView}>
+                <CustomButton 
+                    title="확인"
+                    onPress={()=>setOcr.getOcr(ocr.image)}
                 />
             </View>
         </View>
@@ -185,5 +219,9 @@ const styles = StyleSheet.create({
     },
     imgSlider: {
         height: 300
+    },
+    base64image: {
+        height: 300,
+        width: 300
     }
 })

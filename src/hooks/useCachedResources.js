@@ -14,11 +14,9 @@ export default function useCachedResources() {
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf')
         });
-        console.log("???");
       } catch (e) {
         console.warn(e);
       } finally {
-        console.log("setloading");
         setLoadingComplete(true);
         SplashScreen.hideAsync();
       }
