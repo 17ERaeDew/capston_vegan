@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StyleSheet, Image, View, Dimensions, ScrollView } from 'react-native';
-import { CustomButton, ReverseButton } from '../components/Button';
 import { PersonIcon, CameraIcon, OpcaityIcon } from '../components/IconButton';
 import { CustomStatusBar } from '../components/StatusBar';
 import Text from '../components/styledComponents/Text';
@@ -97,27 +96,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  top_view_root: {
-    marginTop: win.height * 0.165,
-    alignItems: 'center',
-  },
   top_view: {
     marginTop: win.height * 0.165 - 80,
     alignItems: 'center',
-  },
-  step: {
-    marginTop: win.height * 0.165 - 100,
-    alignItems: 'center',
-  },
-  middle_view: {
-    flex: 1,
-    justifyContent: 'center',
-    width: '100%',
-  },
-  bottom_view: {
-    width: '100%',
-    marginTop: 'auto',
-    marginBottom: win.height * 0.06875,
   },
   camera: {
     position: 'absolute',
