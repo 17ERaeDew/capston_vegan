@@ -1,8 +1,8 @@
-import * as React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../reducers/User";
-import useRequest from "./useRequest";
-import axios from "axios";
+import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../reducers/User';
+import useRequest from './useRequest';
+import axios from 'axios';
 
 const quickstart = async (image) => {
   // let today = new Date();
@@ -38,14 +38,13 @@ const quickstart = async (image) => {
 
 const sendServer = async (text, vegan) => {
   const data = await axios({
-    url: "https://capstonvegan.herokuapp.com/api/sendText",
-    method: "post",
+    url: 'https://capstonvegan.herokuapp.com/api/sendText',
+    method: 'post',
     data: {
-      text: "초코파이",
+      text: '초코파이',
       vegan: vegan,
     },
   });
-  console.log(data);
   return data;
   return true;
 };
@@ -59,7 +58,7 @@ export default function useOcr() {
   const [ocrState, setOcrState] = React.useState({
     images: [
       {
-        fields: [{ inferText: "" }],
+        fields: [{ inferText: '' }],
       },
     ],
   });
@@ -73,7 +72,7 @@ export default function useOcr() {
 
   React.useEffect(() => {
     if (checkVegan.fulfilled) {
-      console.log("server---------------success-------------");
+      console.log('server---------------success-------------');
       setLoading(false);
       setOcrState(checkVegan.data.body);
     }
@@ -81,7 +80,7 @@ export default function useOcr() {
 
   React.useEffect(() => {
     if (ocr.fulfilled) {
-      console.log("ocr---------------success-------------");
+      console.log('ocr---------------success-------------');
       postCheckVegan(ocr.data, 0); // user.vegan);
       setOcrState(ocr.data.data);
     }
@@ -90,7 +89,7 @@ export default function useOcr() {
   React.useEffect(() => {
     if (ocr.rejected) {
       setLoading(false);
-      console.log("ocr---------------Error-------------");
+      console.log('ocr---------------Error-------------');
       console.log(ocr.error);
     }
   }, [ocr.rejected]);
@@ -98,7 +97,7 @@ export default function useOcr() {
   React.useEffect(() => {
     if (checkVegan.rejected) {
       setLoading(false);
-      console.log("server---------------Error-------------");
+      console.log('server---------------Error-------------');
       console.log(checkVegan.error);
     }
   }, [checkVegan.rejected]);

@@ -3,6 +3,8 @@ import { StyleSheet, Image, View, Dimensions, ScrollView } from 'react-native';
 import { PersonIcon, CameraIcon, OpcaityIcon } from '../components/IconButton';
 import { CustomStatusBar } from '../components/StatusBar';
 import Text from '../components/styledComponents/Text';
+import { usePickerCamera } from "../hooks";
+
 const win = Dimensions.get('window');
 
 const tmpData = [
@@ -44,10 +46,11 @@ const tmpData = [
 ];
 
 export function Home({ navigation, route }) {
+  const openCamera = usePickerCamera(navigation, 'Ocr');
   React.useLayoutEffect(() => {
     const set = navigation.setOptions({
       headerRight: () => (
-        <PersonIcon onPress={() => alert('This is a button!')} />
+        <PersonIcon onPress={() => navigation.navigate({ name: 'Product' })} />
       ),
       headerLeft: () => (
         <OpcaityIcon onPress={() => alert('This is a button!')} />
@@ -78,10 +81,7 @@ export function Home({ navigation, route }) {
           })}
         </View>
       </ScrollView>
-      <CameraIcon
-        style={styles.camera}
-        onPress={() => navigation.navigate('CameraView')}
-      />
+      <CameraIcon style={styles.camera} onPress={openCamera} />
     </View>
   );
 }

@@ -2,4 +2,4 @@ export { default as useCachedResources } from './useCachedResources';
 export { default as useEnroll } from './useEnroll';
 export { default as useRequest } from './useRequest';
 export { default as useOcr } from './useOcr';
-export { default as useCamera } from './useCamera';
+export { useCamera, usePickerCamera } from './useCamera';

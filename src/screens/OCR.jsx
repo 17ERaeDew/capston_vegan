@@ -1,81 +1,64 @@
 import * as React from "react";
-import { StyleSheet, Image, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Image, View, ActivityIndicator, Dimensions } from "react-native";
 import { CustomButton } from "../components/Button";
-import { CustomInput } from "../components/Input";
-import { ImagePickerExample } from "../components/ImgInput";
-import { CustomBar } from "../components/SystemBar";
-import { useEnroll, useOcr } from "../hooks";
-import { SliderBox } from "react-native-image-slider-box";
+import { useOcr } from "../hooks";
 import Text from "../components/styledComponents/Text";
 
+const win = Dimensions.get('window');
 
-export default function TestOCR({ navigation }) {
+export default function Ocr({ navigation, route }) {
   const [ocr, setOcr] = useOcr();
+  const inputEl = React.useRef(route.params.image);
+  const imgHeight = (route.params.height * win.width * 0.96) / route.params.width;
   return (
     <View style={styles.container}>
-      <ImagePickerExample image={ocr.image} setImage={setOcr.setImage} />
-      {/* <Image
-                style={styles.base64image}
-                source={{uri: ocr.image}}
-            /> */}
-      {ocr.loading && <ActivityIndicator size="large" color="#0000ff" />}
-      <Text>
-        {/* {ocr.ocrState} */}
-      </Text>
+      <Image
+        style={{
+          marginTop: win.height * 0.5 - imgHeight / 2 - 80,
+          opacity: 0.3,
+          width: win.width * 0.96,
+          height: imgHeight,
+        }}
+        source={{ uri: `data:image/png;base64,${inputEl.current}` }}
+      />
+      <View
+        style={{
+          ...styles.loading,
+          top: imgHeight / 2 + win.height * 0.5 - imgHeight / 2 - 80,
+        }}
+      >
+        <ActivityIndicator size="large" color="#009945" />
+        <View style={{ height: win.height * 0.03 }} />
+        <Text textAlign="center" customStyle="Subtitle1">
+          채식 사이가 필터링 하는중입니다.{'\n'}잠시만 기다려 주세요.
+        </Text>
+      </View>
+
       <View style={styles.buttonView}>
         <CustomButton title="확인" onPress={() => setOcr.getOcr(ocr.image)} />
+      </View>
+      <View style={styles.buttonView}>
+        <CustomButton
+          title="home"
+          onPress={() => navigation.navigate({ name: 'Home' })}
+        />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        paddingLeft: '10%',
-        paddingRight: '10%'
-    },
-    enrollStart_image: {
-        width: '100%',
-    },
-    top_image: {
-        position: 'absolute', 
-        top: "16%",
-        left: '10%', 
-        right: '10%', 
-    },
-    bottom_button: {
-        position: 'absolute', 
-        left: '10%', 
-        right: '10%', 
-        bottom: 64
-    },
-    switch: {
-        height: 20,
-        margin: 20
-    },
-    input: {
-        marginBottom: 30,
-        width: '80%'
-    },
-    baseText: {
-        fontSize: 18,
-        lineHeight: 30,
-        marginBottom: 30
-    },
-    startButton: {
-        borderRadius: 5,
-        height: 40
-    },
-    imgSlider: {
-        height: 300
-    },
-    base64image: {
-        height: 300,
-        width: 300
-    }
-})
+  container: {
+    backgroundColor: 'white',
+    paddingLeft: '2%',
+    paddingRight: '2%',
+    paddingTop: '2%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loading: {
+    position: 'absolute',
+    right: 0,
+    left: 0,
+  }
+});

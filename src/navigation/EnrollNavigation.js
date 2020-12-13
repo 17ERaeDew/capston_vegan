@@ -9,8 +9,8 @@ import {
   ManualStart3,
   ManualStart4,
   Home,
-  CameraView,
-  TestOCR,
+  Ocr,
+  Product,
 } from '../screens';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import {
@@ -117,12 +117,40 @@ export default function EnrollNavigation() {
         />
         <Stack.Screen options={options_home} name="Home" component={Home} />
         <Stack.Screen
-          options={options_home}
-          name="CameraView"
-          component={CameraView}
+          options={{
+            title: '이미지 분석 중',
+            headerStyle: {
+              backgroundColor: '#009945',
+            },
+            headerTitleStyle: {
+              fontFamily: fontFamily.headline6,
+              alignSelf: 'center',
+              color: 'white',
+            },
+            backgroundColor: '#fff',
+            gestureDirection: 'horizontal',
+          }}
+          name="Ocr"
+          component={Ocr}
         />
-
-        {/* <Stack.Screen name="TestOCR" component={TestOCR} /> */}
+        <Stack.Screen
+          options={{
+            title: '제품명',
+            headerStyle: {
+              backgroundColor: '#009945',
+            },
+            headerTitleStyle: {
+              fontFamily: fontFamily.headline6,
+              alignSelf: 'center',
+              color: 'white',
+            },
+            headerTintColor: 'white',
+            backgroundColor: '#fff',
+            gestureDirection: 'horizontal',
+          }}
+          name="Product"
+          component={Product}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
