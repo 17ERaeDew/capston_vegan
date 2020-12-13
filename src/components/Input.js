@@ -1,69 +1,43 @@
 import React from 'react';
+import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 import {
-  TextInput,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView
-} from 'react-native';
+  CustomColor,
+  fontFamily,
+  fontSize,
+} from './styledComponents/variables';
+
+const win = Dimensions.get('window');
+
+const TextInput = styled.TextInput`
+  display: ${({ display }) => display};
+  font-size: ${fontSize.body1};
+  font-family: ${fontFamily.body1};
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: ${({ onFoucs }) =>
+    onFoucs ? CustomColor.primary : CustomColor.onSecondary};
+  padding: 12px 16px 12px 16px;
+`;
 
 export function CustomInput(props) {
-    return (
-        <TextInput 
-            style={styles.TextInput}
-          onChangeText={text => props.onChangeText(text)}
-          value={props.value}
-          placeholder={props.placeholder}
-        />
-    )
+  return (
+    <TextInput
+      onChangeText={(text) => props.onChangeText(text)}
+      value={props.value}
+      placeholder={props.placeholder}
+      autoCompleteType={props.autoCompleteType}
+      secureTextEntry={props.secureTextEntry}
+      display={props.display}
+    />
+  );
 }
-
-export function CustomKeyboardAviodInput(props) {
-    return (
-      <KeyboardAvoidingView 
-        style={styles.container}
-        behavior="padding"
-        enabled
-        >
-        <TextInput 
-        style={styles.TextInput}
-          onChangeText={text => props.onChangeText(text)}
-          value={props.value}
-          />
-       </KeyboardAvoidingView>
-    )
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-        // paddingHorizontal: '0%',
-        // paddingVertical: 100
-    },
-  TextInput: {
-    borderColor: 'gray',
-    borderWidth: 2,
-    borderRadius: 10,
-    width: '100%',
-    height: 70,
-    fontSize: 20,
-    backgroundColor: 'white',
-    paddingLeft: 20
-  },
-  title: {
-    fontSize: 30,
-    color: 'white'
-  },
-});
 
 CustomInput.defaultProps = {
-    value: '',
-    onChangeText: ()=>{},
-    placeholder: ''
-};
-
-CustomKeyboardAviodInput.defaultProps = {
-    value: '',
-    onChangeText: ()=>{},
+  display: 'flex',
+  value: '',
+  onChangeText: () => {},
+  placeholder: '',
+  autoCompleteType: 'off',
+  secureTextEntry: false,
 };
