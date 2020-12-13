@@ -36,9 +36,20 @@ export function CameraIcon(props) {
       disabled={props.disabled}
       style={props.style}
     >
-      <View>
-        <Image source={require('../assets/images/camera.png')} />
-      </View>
+      <Image source={require('../assets/images/camera.png')} />
+    </IconButton>
+  );
+}
+
+export function SnapIcon(props) {
+  return (
+    <IconButton
+      onPress={props.onPress}
+      activeOpacity={1}
+      disabled={props.disabled}
+      style={props.style}
+    >
+      <Image source={require('../assets/images/snap.png')} />
     </IconButton>
   );
 }
@@ -54,9 +65,7 @@ PersonIcon.defaultProps = {
 
 CameraIcon.defaultProps = {
   title: 'button',
-  backgroundColor: '#009945',
+  backgroundColor: '#fff',
   onPress: () => {},
-  fontColor: 'white',
-  borderColor: '#009945',
   disabled: false,
 };

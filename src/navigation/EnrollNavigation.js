@@ -9,6 +9,7 @@ import {
   ManualStart3,
   ManualStart4,
   Home,
+  CameraView,
   TestOCR,
 } from '../screens';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
@@ -68,6 +69,7 @@ export default function EnrollNavigation() {
     backgroundColor: '#fff',
     gestureDirection: 'horizontal',
   };
+
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
@@ -114,6 +116,12 @@ export default function EnrollNavigation() {
           component={ManualStart4}
         />
         <Stack.Screen options={options_home} name="Home" component={Home} />
+        <Stack.Screen
+          options={options_home}
+          name="CameraView"
+          component={CameraView}
+        />
+
         {/* <Stack.Screen name="TestOCR" component={TestOCR} /> */}
       </Stack.Navigator>
     </NavigationContainer>

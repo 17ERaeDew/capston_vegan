@@ -3,7 +3,6 @@ import { StyleSheet, Image, View, Dimensions, ScrollView } from 'react-native';
 import { PersonIcon, CameraIcon, OpcaityIcon } from '../components/IconButton';
 import { CustomStatusBar } from '../components/StatusBar';
 import Text from '../components/styledComponents/Text';
-
 const win = Dimensions.get('window');
 
 const tmpData = [
@@ -46,7 +45,7 @@ const tmpData = [
 
 export function Home({ navigation, route }) {
   React.useLayoutEffect(() => {
-    navigation.setOptions({
+    const set = navigation.setOptions({
       headerRight: () => (
         <PersonIcon onPress={() => alert('This is a button!')} />
       ),
@@ -54,33 +53,34 @@ export function Home({ navigation, route }) {
         <OpcaityIcon onPress={() => alert('This is a button!')} />
       ),
     });
+    return set;
   }, [navigation, route]);
 
   return (
     <View>
+      <CustomStatusBar />
       <ScrollView>
         <View style={styles.container}>
-          <CustomStatusBar />
-            {tmpData.map((value, index) => {
-              return (
-                <View style={styles.card} key={index}>
-                  <Image
-                    style={{
-                      width: win.width * 0.47,
-                      height: win.width * 0.47,
-                    }}
-                    source={value.url}
-                  />
-                  <Text customStyle="Caption">{value.type}</Text>
-                  <Text customStyle="Subtitle1">{value.title}</Text>
-                </View>
-              );
-            })}
+          {tmpData.map((value, index) => {
+            return (
+              <View style={styles.card} key={index}>
+                <Image
+                  style={{
+                    width: win.width * 0.47,
+                    height: win.width * 0.47,
+                  }}
+                  source={value.url}
+                />
+                <Text customStyle="Caption">{value.type}</Text>
+                <Text customStyle="Subtitle1">{value.title}</Text>
+              </View>
+            );
+          })}
         </View>
       </ScrollView>
       <CameraIcon
         style={styles.camera}
-        onPress={() => alert('This is a button!')}
+        onPress={() => navigation.navigate('CameraView')}
       />
     </View>
   );
@@ -107,5 +107,5 @@ const styles = StyleSheet.create({
   },
   card: {
     width: win.width * 0.47,
-  },
+  }
 });

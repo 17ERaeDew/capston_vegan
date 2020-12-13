@@ -7,7 +7,7 @@ export {
   ManualStart4,
 } from './Manual';
 export { Home } from './Home';
-
+export { CameraView } from './Camera';
 export { default as TabOneScreen } from './TabOneScreen';
 export { default as TabTwoScreen } from './TabTwoScreen';
 export { default as TestOCR } from './OCR';
