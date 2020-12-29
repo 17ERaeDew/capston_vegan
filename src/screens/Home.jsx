@@ -1,60 +1,63 @@
 import * as React from 'react';
-import { StyleSheet, Image, View, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Image, View, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 import { PersonIcon, CameraIcon, OpcaityIcon } from '../components/IconButton';
 import { CustomStatusBar } from '../components/StatusBar';
 import Text from '../components/styledComponents/Text';
-import { usePickerCamera } from "../hooks";
+import { usePickerCamera } from '../hooks';
 
 const win = Dimensions.get('window');
 
-const tmpData = [
-  {
-    url: require('../assets/images/enroll_vegan_flexitarian.png'),
-    type: '과자류',
-    title: '플렉시테리언',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_pollo.png'),
-    type: '고기류',
-    title: '폴로',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_pesco.png'),
-    type: '채소류',
-    title: '페스코',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_lacto-ovo.png'),
-    type: '채소류2',
-    title: '락토오보',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_ovo.png'),
-    type: '과자류',
-    title: '오보',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_lacto.png'),
-    type: '고기류',
-    title: '락토',
-  },
-  {
-    url: require('../assets/images/enroll_vegan_vegan.png'),
-    type: '채소류',
-    title: '비건',
-  },
-];
 
 export function Home({ navigation, route }) {
+  const user = useSelector((state) => state.User.user);
+  const product = useSelector((state) => state.Product.product);
   const openCamera = usePickerCamera(navigation, 'Ocr');
   React.useLayoutEffect(() => {
+    let vegan = '';
+    switch (user.vegan-1) {
+      case 0: {
+        vegan = '플렉시테리언';
+        break;
+      }
+      case 1: {
+        vegan = '폴로';
+        break;
+      }
+      case 2: {
+        vegan = '페스코';
+        break;
+      }
+      case 3: {
+        vegan = '락토오보';
+        break;
+      }
+      case 4: {
+        vegan = '오보';
+        break;
+      }
+      case 5: {
+        vegan = '락토';
+        break;
+      }
+      case 6: {
+        vegan = '비건';
+        break;
+      }
+      default:
+        vegan = '비건';
+        break;
+    }
     const set = navigation.setOptions({
       headerRight: () => (
-        <PersonIcon onPress={() => navigation.navigate({ name: 'Product' })} />
+        <PersonIcon
+          onPress={() => navigation.navigate({ name: 'EnrollVegan' })}
+        />
       ),
       headerLeft: () => (
-        <OpcaityIcon onPress={() => alert('This is a button!')} />
+        <OpcaityIcon onPress={() => navigation.navigate({ name: 'Ocr' })} />
       ),
+      title: vegan,
     });
     return set;
   }, [navigation, route]);
@@ -64,18 +67,34 @@ export function Home({ navigation, route }) {
       <CustomStatusBar />
       <ScrollView>
         <View style={styles.container}>
-          {tmpData.map((value, index) => {
+          {product.length === 0 && (
+            <View style={styles.none}>
+              <Text customStyle="Subtitle1">검사한 식품이 없습니다.</Text>
+            </View>
+          )}
+          {product.map((value, index) => {
             return (
               <View style={styles.card} key={index}>
-                <Image
-                  style={{
-                    width: win.width * 0.47,
-                    height: win.width * 0.47,
-                  }}
-                  source={value.url}
-                />
-                <Text customStyle="Caption">{value.type}</Text>
-                <Text customStyle="Subtitle1">{value.title}</Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate({
+                      name: 'Product',
+                      params: {
+                        ocr: value
+                    }}
+                    )
+                  }
+                >
+                  <Image
+                    style={{
+                      width: win.width * 0.47,
+                      height: win.width * 0.47,
+                    }}
+                    source={require('../assets/images/loading.png')}
+                  />
+                  <Text customStyle="Caption">{value.type}</Text>
+                  <Text customStyle="Subtitle1">{value.title}</Text>
+                </TouchableOpacity>
               </View>
             );
           })}
@@ -107,5 +126,10 @@ const styles = StyleSheet.create({
   },
   card: {
     width: win.width * 0.47,
-  }
+  },
+  none: {
+    width: win.width,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
 });

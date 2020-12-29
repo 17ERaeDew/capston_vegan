@@ -30,3 +30,19 @@ export function ErrorBar(props) {
     </View>
   );
 }
+
+export function SuccessBar(props) {
+  return (
+    <View
+      style={{
+        ...props.style,
+        backgroundColor: CustomColor.primary,
+        borderRadius: 8,
+      }}
+    >
+      <Text customStyle="Headline5" color="background">
+        이 제품은 사용자에게 적합합니다.
+      </Text>
+    </View>
+  );
+}

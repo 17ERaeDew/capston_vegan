@@ -16,6 +16,24 @@ import Text from '../components/styledComponents/Text';
 const win = Dimensions.get('window');
 
 export function EnrollStart({ navigation }) {
+   const [enroll, setEnroll] = useEnroll();
+
+  // React.useEffect(()=>{
+  //   if(enroll.enroll.user.name !== "" && enroll.enroll.user.password !== "" && enroll.enroll.vegan !== 0){
+  //     navigation.dispatch(
+  //       CommonActions.reset({
+  //         index: 1,
+  //         routes: [
+  //           {
+  //             index: 1,
+  //             name: "Home",
+  //           },
+  //         ],
+  //       }),
+  //     );
+  //   }
+  // }, [enroll.enroll])
+
   return (
     <View style={{ ...styles.container, height: win.height}}>
       <View style={styles.top_view}>

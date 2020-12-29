@@ -17,7 +17,7 @@ export function PersonIcon(props) {
   return (
     <IconButton
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
       style={props.style}
     >
@@ -32,7 +32,7 @@ export function CameraIcon(props) {
   return (
     <IconButton
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
       style={props.style}
     >
@@ -45,7 +45,7 @@ export function SnapIcon(props) {
   return (
     <IconButton
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
       style={props.style}
     >

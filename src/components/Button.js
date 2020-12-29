@@ -32,7 +32,7 @@ export function CustomButton(props) {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
       height={props.height}
       width={props.width}
@@ -74,7 +74,7 @@ export function ReverseButton(props) {
   return (
     <ReverseTouchableOpacity
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
       height={props.height}
       width={props.width}

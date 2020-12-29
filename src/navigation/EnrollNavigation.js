@@ -73,7 +73,7 @@ export default function EnrollNavigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="EnrollStart"
         mode="modal"
         headerMode="float"
         screenOptions={TransitionScreenOptions}

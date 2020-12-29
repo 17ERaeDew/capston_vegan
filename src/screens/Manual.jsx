@@ -4,20 +4,31 @@ import {
   Image,
   View,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import { CustomButton, ReverseButton } from '../components/Button';
 import Text from '../components/styledComponents/Text';
+import { clearProduct } from '../reducers/Product';
+import { clearUser } from '../reducers/User';
+import { useDispatch } from 'react-redux';
 
 const win = Dimensions.get('window');
 
 export function ManualStart({ navigation }) {
+  const dispatch = useDispatch();
+  const clearRedux = () => {
+    dispatch(clearUser());
+    dispatch(clearProduct());
+  };
   return (
     <View style={{ ...styles.container, height: win.height }}>
-      <View style={{ ...styles.top_view, marginTop: win.height * 0.165}}>
-        <Image
-          style={{ width: win.width * 0.6, height: win.width * 0.6 }}
-          source={require('../assets/images/manual_1.png')}
-        />
+      <View style={{ ...styles.top_view, marginTop: win.height * 0.165 }}>
+        <TouchableOpacity onPress={clearRedux}>
+          <Image
+            style={{ width: win.width * 0.6, height: win.width * 0.6 }}
+            source={require('../assets/images/manual_1.png')}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.step}>
         <Image
@@ -36,7 +47,7 @@ export function ManualStart({ navigation }) {
       <View style={styles.bottom_view}>
         <ReverseButton
           title="아니요 안할래요"
-          onPress={() => navigation.navigate('TestOCR')}
+          onPress={() => navigation.navigate('Home')}
         />
         <View style={{ height: win.height * 0.02 }} />
         <CustomButton
@@ -143,13 +154,12 @@ export function ManualStart4({ navigation }) {
       <View style={styles.bottom_view}>
         <CustomButton
           title="시작하기"
-          onPress={() => navigation.navigate('ManualStart2')}
+          onPress={() => navigation.navigate('Home')}
         />
       </View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -177,5 +187,5 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 'auto',
     marginBottom: win.height * 0.06875,
-  }
+  },
 });

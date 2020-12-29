@@ -32,7 +32,7 @@ export function BackArrow(props) {
   return (
     <TouchableOpacity
       onPress={props.onPress}
-      activeOpacity={1}
+      activeOpacity={0.8}
       disabled={props.disabled}
     >
       <Text
