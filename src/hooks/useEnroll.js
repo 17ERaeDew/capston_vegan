@@ -1,44 +1,51 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../reducers/User';
 import useRquest from './useRequest';
 
 export default function useEnroll() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [enroll, setEnroll] = React.useState({
-      name: '',
-      vegan: 0
+    name: '',
+    password: '',
+    vegan: 0,
   });
-    const user = useSelector(
-    (state) => state.User.user
-  );
+  const user = useSelector((state) => state.User.user);
 
   const inputName = (name) => {
-    setEnroll(value => {
-        return {
-            ...value,
-            name: name
-        }
-    })
-  }
+    setEnroll((value) => {
+      return {
+        ...value,
+        name: name,
+      };
+    });
+  };
+
+  const inputPassword = (password) => {
+    setEnroll((value) => {
+      return {
+        ...value,
+        password: password,
+      };
+    });
+  };
 
   const selectVegan = (vegan) => {
-    setEnroll(value => {
-        return {
-            ...value,
-            vegan: vegan
-        }
-    })
-  }
+    setEnroll((value) => {
+      return {
+        ...value,
+        vegan: vegan,
+      };
+    });
+  };
 
   const finEnroll = () => {
     dispatch(setUser(enroll));
-  }
+  };
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     setEnroll(user);
-  }, [user])
+  }, [user]);
 
-  return [{enroll}, {inputName, selectVegan, finEnroll}];
+  return [{ enroll }, { inputName, inputPassword, selectVegan, finEnroll }];
 }
-
