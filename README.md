@@ -54,3 +54,6 @@ Javascript, [ReactNative](https://github.com/facebook/react-native), [Expo](http
 # 사용 api
 
 - ### [NAVER OCR](https://www.ncloud.com/product/aiService/ocr)
+
+# Design System
+![BI-Board](https://user-images.githubusercontent.com/28812629/103453178-82919700-4d1a-11eb-9129-08a530fd3da6.png)
